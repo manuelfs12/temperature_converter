@@ -31,14 +31,26 @@ class TemperatureConverter extends StatefulWidget {
 
 class _TemperatureConverterState extends State<TemperatureConverter> {
 
-  int input;
+
   String output;
+  String output2;
   TextEditingController inputController;
 
-  tempConverter(String input, String degree) {
-    output = (int.parse(input) + 273.15).toString();
-    print(output);
-    return output;
+  void tempConverter(String input) {
+    input = input.trim();
+    String inputSubstring;
+
+    for (var i = 0; i < input.length; i++) {
+      inputSubstring = input[i].toUpperCase();
+      if (inputSubstring.contains('C')) {
+        print(input.substring(0, i));
+
+        output = (double.parse(input.substring(0, i)) + 273.15).toString();
+        print(output + 'K');
+        output2 = ((double.parse(input.substring(0, i)) * 9 / 5) + 32).toString();
+        print(output2 + "F");
+      }
+    }
   }
 
   @override
@@ -67,12 +79,12 @@ class _TemperatureConverterState extends State<TemperatureConverter> {
                 controller: inputController,
                 onSubmitted: (text) {
                   setState(() {
-                    output = tempConverter(text, 'c');
+                    tempConverter(text);
                   });
                 },
               ),
             ),
-            Text(output??'default')
+            Text(output??'0')
 
           ],
         ),
