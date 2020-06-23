@@ -23,41 +23,55 @@ class MyApp extends StatelessWidget {
 class TemperatureConverter extends StatefulWidget {
   @override
   _TemperatureConverterState createState() => _TemperatureConverterState();
-
 }
 
 class _TemperatureConverterState extends State<TemperatureConverter> {
-
   String output;
   String output2;
   TextEditingController inputController;
 
   void tempConverter(String input) {
-    input = input.trim();
-    String inputSubstring;
+    setState(() {
+      input = input.trim();
+      String inputSubstring;
 
-    for (var i = 0; i < input.length; i++) {
-      inputSubstring = input[i].toUpperCase();
-      if (inputSubstring.contains('C')) {
-        output = (double.parse(input.substring(0, i)) + 273.15).toStringAsFixed(2) + ' K';
-        output2 = ((double.parse(input.substring(0, i)) * 9 / 5) + 32).toStringAsFixed(2) + ' F';
-      } else if (inputSubstring.contains('F')) {
-        output = ((double.parse(input.substring(0, i)) - 32) * 5 / 9 + 273.15).toStringAsFixed(2) + ' K';
-        output2 = ((double.parse(input.substring(0, i)) - 32) * 5 / 9).toStringAsFixed(2) + ' C';
-      } else if (inputSubstring.contains('K')) {
-        output = (double.parse(input.substring(0, i)) - 273.15).toStringAsFixed(2) + ' C';
-        output2 = ((double.parse(input.substring(0, i)) - 273.15) * 9 / 5 + 32).toStringAsFixed(2) + ' F';
-      } else {
-        output = 'Invalid input';
-        output2 = output;
+      for (var i = 0; i < input.length; i++) {
+        inputSubstring = input[i].toUpperCase();
+        if (inputSubstring.contains('C')) {
+          output = (double.parse(input.substring(0, i)) + 273.15)
+                  .toStringAsFixed(2) +
+              ' K';
+          output2 = ((double.parse(input.substring(0, i)) * 9 / 5) + 32)
+                  .toStringAsFixed(2) +
+              ' F';
+        } else if (inputSubstring.contains('F')) {
+          output = ((double.parse(input.substring(0, i)) - 32) * 5 / 9 + 273.15)
+                  .toStringAsFixed(2) +
+              ' K';
+          output2 = ((double.parse(input.substring(0, i)) - 32) * 5 / 9)
+                  .toStringAsFixed(2) +
+              ' C';
+        } else if (inputSubstring.contains('K')) {
+          output = (double.parse(input.substring(0, i)) - 273.15)
+                  .toStringAsFixed(2) +
+              ' C';
+          output2 =
+              ((double.parse(input.substring(0, i)) - 273.15) * 9 / 5 + 32)
+                      .toStringAsFixed(2) +
+                  ' F';
+        } else {
+          output = 'Invalid input';
+          output2 = output;
+        }
       }
-    }
+    });
   }
 
   @override
   void initState() {
     super.initState();
   }
+
   void dispose() {
     inputController.dispose();
     super.dispose();
@@ -69,7 +83,6 @@ class _TemperatureConverterState extends State<TemperatureConverter> {
       appBar: AppBar(
         title: Text('Converter'),
         centerTitle: true,
-
       ),
       body: Container(
         padding: EdgeInsets.only(top: 10.0),
@@ -86,14 +99,13 @@ class _TemperatureConverterState extends State<TemperatureConverter> {
                 ),
                 controller: inputController,
                 onSubmitted: (text) {
-                  setState(() {
-                    tempConverter(text);
-                  });
+                  tempConverter(text);
                 },
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 20.0, top: 10.0, right: 20.0),
+              padding:
+                  const EdgeInsets.only(left: 20.0, top: 10.0, right: 20.0),
               child: Container(
                 alignment: Alignment.center,
                 padding: EdgeInsets.all(10.0),
@@ -105,7 +117,8 @@ class _TemperatureConverterState extends State<TemperatureConverter> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 20.0, top: 10.0, right: 20.0),
+              padding:
+                  const EdgeInsets.only(left: 20.0, top: 10.0, right: 20.0),
               child: Container(
                 alignment: Alignment.center,
                 padding: EdgeInsets.all(10.0),
@@ -122,4 +135,3 @@ class _TemperatureConverterState extends State<TemperatureConverter> {
     );
   }
 }
-
