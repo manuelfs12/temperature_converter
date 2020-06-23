@@ -44,11 +44,8 @@ class _TemperatureConverterState extends State<TemperatureConverter> {
       inputSubstring = input[i].toUpperCase();
       if (inputSubstring.contains('C')) {
         print(input.substring(0, i));
-
-        output = (double.parse(input.substring(0, i)) + 273.15).toString();
-        print(output + 'K');
-        output2 = ((double.parse(input.substring(0, i)) * 9 / 5) + 32).toString();
-        print(output2 + "F");
+        output = (double.parse(input.substring(0, i)) + 273.15).toString() + ' K';
+        output2 = ((double.parse(input.substring(0, i)) * 9 / 5) + 32).toString() + ' F';
       }
     }
   }
@@ -84,8 +81,30 @@ class _TemperatureConverterState extends State<TemperatureConverter> {
                 },
               ),
             ),
-            Text(output??'0')
-
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Container(
+                alignment: Alignment.center,
+                padding: EdgeInsets.all(10.0),
+                color: Theme.of(context).primaryColor,
+                child: Text(
+                  output ?? '0',
+                  style: TextStyle(color: Colors.white, fontSize: 20.0),
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Container(
+                alignment: Alignment.center,
+                padding: EdgeInsets.all(10.0),
+                color: Theme.of(context).primaryColor,
+                child: Text(
+                  output2 ?? '0',
+                  style: TextStyle(color: Colors.white, fontSize: 20.0),
+                ),
+              ),
+            ),
           ],
         ),
       ),
